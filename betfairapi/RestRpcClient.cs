@@ -9,10 +9,11 @@ using System.Net;
 using System.IO;
 using Api_ng_sample_code.Json;
 using Api_ng_sample_code.TO;
+using RestSharp;
 
 namespace Api_ng_sample_code
 {
-    public class JsonRpcClient  :  IClient
+    public class RestRpcClient  :  IClient
     {
         public string EndPoint { get; private set; }
         private static readonly IDictionary<string, Type> operationReturnTypeMap = new Dictionary<string, Type>();
@@ -63,7 +64,7 @@ namespace Api_ng_sample_code
         private static readonly string GROUP_BY = "groupBy";
         private static readonly string INCLUDE_ITEM_DESCRIPTION = "includeItemDescription";
 
-        public JsonRpcClient(string endPoint, string appKey, string sessionToken)
+        public RestRpcClient(string endPoint, string appKey, string sessionToken)
 		{
             this.EndPoint = endPoint + "/json-rpc/v1";
             CustomHeaders = new NameValueCollection();
@@ -132,10 +133,11 @@ namespace Api_ng_sample_code
 
 
 
-        protected WebRequest CreateWebRequest(Uri uri)
+        protected WebRequest CreateWebRequest(String uri)
         {
-            WebRequest request = WebRequest.Create(new Uri(EndPoint));
-            request.Method = "POST";
+            var client = new RestClient(uri);
+            var request = new RestRequest(Method.POST);
+
             request.ContentType = "application/json-rpc";
             request.Headers.Add(HttpRequestHeader.AcceptCharset, "ISO-8859-1,utf-8");
             request.Headers.Add(CustomHeaders);

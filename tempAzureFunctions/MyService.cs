@@ -40,6 +40,8 @@ namespace tempAzureFunctions
             request.AddHeader("Accept", "application/json");
             request.AddParameter("undefined", "username=jack.smith%40gmail.com&password=jacksmith1", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
+
+
             
             return "hello";
         }
