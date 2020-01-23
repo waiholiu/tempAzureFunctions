@@ -13,7 +13,7 @@ namespace tempAzureFunctions
     public class Function1
     {
 
-        IMyService myService;
+        IMyService myService; 
         public Function1(IMyService _myService)
         {
             myService = _myService;  
@@ -35,7 +35,7 @@ namespace tempAzureFunctions
             name = name ?? data?.name;
 
             return name != null
-                ? (ActionResult)new OkObjectResult($"Hello, {name}")
+                ? (ActionResult)new OkObjectResult($"Hello2s, {name}")
                 : new BadRequestObjectResult("Please pass a name on the query string or in the request body");
         }
     }
